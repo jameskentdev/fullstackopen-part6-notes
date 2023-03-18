@@ -34,12 +34,14 @@ const reducer = (state = initialState, action) => {
         }
         return a;
       });
+    case 'CREATE':
+      return [...state, action.payload];
     default:
       return state;
   }
 };
 
-const vote = (id) => {
+const voteFor = (id) => {
   return {
     type: 'VOTE',
     payload: {
@@ -48,7 +50,15 @@ const vote = (id) => {
   };
 };
 
+const createAnecdote = (content) => {
+  return {
+    type: 'CREATE',
+    payload: asObject(content),
+  };
+};
+
 module.exports = {
   reducer,
-  vote,
+  voteFor,
+  createAnecdote,
 };
