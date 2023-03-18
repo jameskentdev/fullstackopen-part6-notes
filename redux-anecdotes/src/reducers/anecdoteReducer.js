@@ -23,7 +23,32 @@ const reducer = (state = initialState, action) => {
   console.log('state now: ', state);
   console.log('action', action);
 
-  return state;
+  switch (action.type) {
+    case 'VOTE':
+      return state.map((a) => {
+        if (a.id === action.payload.id) {
+          return {
+            ...a,
+            votes: a.votes + 1,
+          };
+        }
+        return a;
+      });
+    default:
+      return state;
+  }
 };
 
-export default reducer;
+const vote = (id) => {
+  return {
+    type: 'VOTE',
+    payload: {
+      id,
+    },
+  };
+};
+
+module.exports = {
+  reducer,
+  vote,
+};
